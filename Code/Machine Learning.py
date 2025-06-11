@@ -5,7 +5,7 @@
 
 # Here we predict sales based on brand, pricing, gender, and other factors. We will be using well known LightGBM, a machine learning tool. It will help to estimate how likely a brand is to sell their product even before it's listed or stocked.
 
-# In[254]:
+
 
 
 import pandas as pd
@@ -21,7 +21,7 @@ from lightgbm import LGBMRegressor as lgb
 from lightgbm import early_stopping, log_evaluation
 
 
-# In[255]:
+
 
 
 os.chdir("/Users/kanyin/Documents/Kanyin/Data Science/Data Projects/Perfume E-Commerce")
@@ -31,7 +31,7 @@ perf.rename(columns={'brand.1':'brand'},inplace=True)
 perf.head()
 
 
-# In[256]:
+
 
 
 # Removing variables that may stunt prediction
@@ -39,20 +39,20 @@ perf=perf.drop(['title','lastUpdated','available','Available', 'sold'], axis=1)
 perf
 
 
-# In[257]:
+
 
 
 #check for NA values out of the 2000 entries
 print(perf.isnull().sum())
 
 
-# In[258]:
+
 
 
 perf.head()
 
 
-# In[260]:
+
 
 
 perf['size'] = perf['size'].fillna(perf['size'].median())
@@ -69,7 +69,7 @@ import seaborn as sns
 plt.figure
 
 
-# In[261]:
+
 
 
 catgry= ['brand','type', 'Sex', 'itemLocation']
@@ -77,7 +77,7 @@ for col in catgry:
     perf[col] = perf[col].astype('category')
 
 
-# In[263]:
+
 
 
 # Split the data so that we use 20% to test, 80% to train
@@ -86,7 +86,7 @@ B= perf['Sold']
 A_train, A_test, B_train, B_test = train_test_split(A,B, test_size=0.2, random_state=42)
 
 
-# In[264]:
+
 
 
 # Define parameters
@@ -112,7 +112,7 @@ model.fit(
 )
 
 
-# In[265]:
+
 
 
 #Evaluate the model
@@ -125,7 +125,7 @@ print(f"Test RMSE: {rmse:.2f}")
 print(f"Test MSE: {mse:.2f}")
 
 
-# In[266]:
+
 
 
 import lightgbm as gbm
@@ -134,19 +134,19 @@ gbm.plot_importance(model, max_num_features=10)
 plt.show()
 
 
-# In[268]:
+
 
 
 print(perf['Sold'].describe())
 
 
-# In[271]:
+
 
 
 perf
 
 
-# In[290]:
+
 
 
 import plotly.express as px
@@ -156,7 +156,7 @@ fig=px.bar(data, x='brand', y='Sold', color='Sex', title='Brand Sales by Sex')
 fig.show()
 
 
-# In[292]:
+
 
 
 import matplotlib.pyplot as plt
@@ -165,7 +165,7 @@ perf['log_Sold'].hist(bins=50)
 plt.title("Distribution of number_sold")
 
 
-# In[295]:
+
 
 
 model.fit(A_train, perf.loc[A_train.index, 'log_Sold'])
@@ -174,7 +174,7 @@ pred = np.expm1(pred_log)
 pred
 
 
-# In[299]:
+
 
 
 A = perf.drop(columns=['Sold', 'log_Sold'])
@@ -189,7 +189,7 @@ model.fit(
 )
 
 
-# In[301]:
+
 
 
 #Back transform
@@ -204,14 +204,14 @@ print(f"Test RMSE: {rmse:.2f}")
 print(f"Test MSE: {mse:.2f}")
 
 
-# In[303]:
+
 
 
 mse= mean_squared_error(perf.loc[B_test.index, 'Sold'],B_pred)
 print(f"Validation RMSE: {rmse:.2f}")
 
 
-# In[291]:
+
 
 
 from sklearn.cluster import KMeans
@@ -224,7 +224,6 @@ perf['cluster'] = kmeans.fit_predict(features)
 # It doesn't seem that our machine learning model really captures the nature of the sales. Let's switch to clustering given that
 # most of the bulk sales are well over 1500 in an instance. It's likely that many buyers are most likely distributers.
 
-# In[ ]:
 
 
 
