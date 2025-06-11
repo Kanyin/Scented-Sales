@@ -1,5 +1,5 @@
 # Good Fragrance + Good Brand Name = $$$
-Would it surprise you that the perfume industry is over and 11 billion dollar industry? It is projected to be worth over 30 billion by 2035. European brands have dominated the industry for centuries.
+Would it surprise you that the perfume industry is over multi-billion dollar industry (over 11 B!)? It is projected to be worth over 30 billion by 2035. European brands have dominated the industry for centuries.
 
 
 
